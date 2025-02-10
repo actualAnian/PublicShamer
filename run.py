@@ -164,24 +164,25 @@ def soft_lock_bot(server_data : ServerData):
     with open(config_file, 'w') as f:
         json.dump(data, f, indent=4)
 
-# @bot.command()
-# async def add_message(ctx, new_message: str):
-#     if not is_in_allowed_channel(ctx):
-#         return
-#     if len(new_message.split("<user>")) != 2:
-#         await ctx.send(f"The message has to contain exactly one \"<user>\" {ctx.author.mention}")
-#         return
-#     MESSAGES.append(new_message)  # Add new message to the list
 
-#     with open(config_file, 'w') as f:
-#         json.dump({
-#             "TOKEN" : config["TOKEN"],
-#             "CHANNEL_IDS" : config["CHANNEL_IDS"],
-#             "MAX_NO_EVENTS": config['MAX_NO_EVENTS'],
-#             "MESSAGES": MESSAGES
-#         }, f, indent=4)
-#     await ctx.message.add_reaction("✍️")
-#     await ctx.message.add_reaction("😉")
+
+@bot.tree.command(name="add_message")
+@app_commands.describe(new_message="The shame message you want to add, it has to contain exactly one \"<user>\"")
+async def add_message(interaction: discord.Interaction, new_message: str):
+    data = get_server_config(interaction.guild_id)
+    if not is_in_allowed_channel(interaction, data.channel_ids):
+        return
+    if len(new_message.split("<user>")) != 2:
+        await interaction.response.send_message(f"The message has to contain exactly one \"<user>\" {interaction.author.mention}")
+        return
+    data.messages.append(new_message)  # Add new message to the list
+
+    with open(config_file, 'r') as f:
+        all_data = json.load(f)
+    all_data["SERVERS"][str(interaction.guild_id)]["MESSAGES"] = data.messages
+    with open(config_file, 'w') as f:
+        json.dump(all_data, f, indent=4)
+    await interaction.response.send_message(f"✍️😉")
 
 @bot.event
 async def on_message(message):

@@ -2,14 +2,14 @@
 
 ## possible commands
 
-### /ping_users_at \<time> \<List of users>-
-at the specified time, will look at every voice channel in a server, and ping users who are not in any, the command requires display names of users
+### /ping_users_at \<time> \<List of users>
+At the specified time, will look at every voice channel in a server, and ping users who are not in any, the command requires display names of users
 #### examples: <br>
  /ping_users_at 20:00  user2DisplayName <br>
  /ping_users_at user1DisplayName user2DisplayName
 
-### /create_timetable \<list of arguments to multiply with weekday>-
-creates a list of specified arguments with every weekday, every element has random emote. The bot reacts with the emote itself, so users should react themselves to show they are available for set hours & day
+### /create_timetable \<list of arguments to multiply with weekday>
+Creates a list of specified arguments with every weekday, every element has random emote. The bot reacts with the emote itself, so users should react themselves to show they are available for set hours & day
 #### examples: <br>
 
 /create_timetable 20 21 <br>
@@ -33,8 +33,8 @@ sun 20 - 🇱
 sun 21 - 🪸
 ```
 
-### CURRENTLY DEPRECATED add_message <message>-
-allows users to add their own message to the bot's list, THE MESSAGE NEEDS TO CONTAIN EXACTLY ONE \<user> to be accepted
+### add_message <message>
+Allows users to add their own message to the bot's list, THE MESSAGE NEEDS TO CONTAIN EXACTLY ONE \<user> to be accepted
 #### examples: <br>
 
 /add_message "Be ashamed <user>!"
@@ -60,4 +60,4 @@ allows users to add their own message to the bot's list, THE MESSAGE NEEDS TO CO
 }
 ```
 
-the config needs to be in the same directory as run.py file
+The config needs to be in the same directory as run.py file
